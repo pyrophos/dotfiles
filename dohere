@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#set -x
+
+for thing in $( find . -iname $1 )
+do
+  echo "### Executing $thing ###"
+  $thing
+  echo "### Completed execution of $thing ###"
+  echo ""
+done
+

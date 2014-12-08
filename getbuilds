@@ -1,0 +1,39 @@
+#!/bin/bash
+
+build_type=snapshot
+product=(ds proxy sync server-sdk)
+version=5.0.0.0
+base=~/versions
+pre=">>>"
+
+
+# Create $base if it doesnt exist
+if [ ! -d "$base" ]; then
+  mkdir $base
+fi
+
+# Delete old files
+echo ""
+echo "$pre Deleting old build files"
+rm -rf $base/*.zip $base/UnboundID-* $base/unboundid-*
+
+echo ""
+echo "$pre Files remaining after deleting old zips"
+ls -al $base
+
+# Get all the items found in products
+echo ""
+echo "$pre Getting builds"
+for item in ${product[*]}
+do
+  echo " - $item"
+  cd $base/
+  getbuild.py $build_type $item $version &
+done
+wait
+
+#Unzip the new build files
+echo ""
+echo "$pre Unzipping build files"
+cd $base/
+unzip -oq '*.zip'

@@ -1,0 +1,3 @@
+#!/bin/bash
+local_key_location= ~/.ssh/id_rsa.pub
+cat $local_key_location | ssh $1 "cat >> ~/.ssh/authorized_keys"

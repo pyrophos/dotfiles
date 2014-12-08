@@ -1,0 +1,95 @@
+#!/bin/bash -x
+
+#machine_list=('x3550-04' 'x3550-06' 'x3550-11')
+machine_list=('x3550-04')
+
+base=~/versions
+zip_name=com.example.notification*.zip
+zip_origin=$( find $base -type d -iname unboundid-server-sdk-* )
+zip_location=$zip_origin/build/$zip_name
+#zip_origin=~/versions/scripts/installplugin/$zip_name
+#zip_destination=/ds/aponcy/$zip_name
+
+home=/ds/alu-vsdm/
+host_base=/ds/alu-*
+upload_base=/ds/server_upgrade
+my_machine=$HOSTNAME
+log=script.out
+
+script_location="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+script_name=installplugin
+
+
+function install_plugin () {
+  $1/bin/manage-extension --install $upload_base/$zip_name --no-prompt
+
+  $1/bin/dsconfig set-backend-prop \
+  --backend-name changelog \
+  --set enabled:true \
+  --no-prompt
+
+  $1/bin/dsconfig create-notification-manager \
+  --type third-party \
+  --manager-name "Example Notification Manager" \
+  --set enabled:true \
+  --set "subscription-base-dn:ou=subscriptions,dc=example,dc=com" \
+  --set extension-class:com.unboundid.directory.sdk.examples.ExampleNotificationManager \
+  --no-prompt
+
+  $1/bin/dsconfig set-backend-prop --backend-name dataset --set "notification-manager:Example Notification Manager"
+
+  $1/bin/dsconfig set-log-publisher-prop --publisher-name "Server SDK Extension Debug Logger" --set enabled:true --no-prompt
+
+  $1/bin/stop-ds --restart --quiet
+}
+
+function uninstall_plugin () {
+  $1/bin/dsconfig \
+  set-backend-prop \ 
+  --backend-name userRoot \ 
+  --reset notification-manager
+
+  $1/bin/stop-ds --restart --quiet
+}
+
+function update_plugin () {
+  $1/bin/manage-extension --update $zip_destination --no-prompt
+  $1/bin/stop-ds --restart --quiet
+}
+
+function machine_steps () {
+  echo "*** Doing work to $1"
+  scp -c blowfish $script_location/$script_name $zip_location root@$1:$upload_base
+  ssh root@$1 "$upload_base/$script_name -s"
+}
+
+
+# if this script is run as the slave then execute the install
+if [[ "$1" =~ (-+([sS]|[sS]lave)) ]] ; then
+  echo "*** Executing as slave ***"
+  cd /
+  for directory in $( find $home -type d -iname ds-* )
+  do
+    install_plugin $directory
+  done
+
+elif [[ "$1" =~ (-+([uU]|[uU]pdate)) ]] ; then
+  echo "*** Executing as update ***"
+  cd /
+  for directory in $( find $home -type d -iname ds-* )
+  do
+    update_plugin $directory
+  done
+
+# if this script is run as the master
+elif [[ "$1" =~ (-+([mM]|[mM]aster)) ]] ; then
+  echo "*** Executing as master ***"
+  for machine in ${machine_list[*]}
+  do
+    ( machine_steps $machine & ) > $machine.log 2>&1
+    #machine_steps $machine
+  done
+
+else
+  echo "Please provide an argument --slave or --master"
+fi
