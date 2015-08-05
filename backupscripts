@@ -1,8 +1,0 @@
-#!/bin/sh
-
-#svn_home=~/svn_repo
-username=aponcy
-svn_home=$( find $HOME -maxdepth 1 -type d -iname  "*svn*" )
-echo "Copying files to  ${svn_home}/${username}"
-cp ~/bin/* $svn_home/$username
-echo "You will still need to add any files that are new and commit them"
