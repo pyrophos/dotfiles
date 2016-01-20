@@ -1,60 +1,81 @@
-
 #Whats in an name/alias?
-alias br='. ~/.bash_profile' # easily reload .bash_profile
-alias f='open -a Finder ./' # Open a particular file using Finder
 
-alias weather='~/git/ansiweather/ansiweather'
-alias w='~/git/ansiweather/ansiweather'
+# Mac Specific aliases
+alias f='open -a Finder ./' # Open a particular file using Finder
+alias vmstat=vm_stat
+alias htop='sudo htop'
+alias disablenap='defaults write NSGlobalDomain NSAppSleepDisabled -bool YES'
+alias enablenap='defaults delete NSGlobalDomain NSAppSleepDisabled'
+alias mvn='mvn -DsuppressOutputOnFailure=true'
+alias cow='fortune | cowsay'
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+# Navigate to directories I use often
+alias xtex='cd /Users/aponcy/svnrepo/qa/texas-file-repository/trunk'
+alias xtrunk='cd /Users/aponcy/svnrepo/trunk/ds/'
+alias xver='cd /Users/aponcy/versions/'
+alias dnsflush='sudo discoveryutil mdnsflushcache'
+
+# Quick kill statements
+alias killds='pkill -f "DirectoryServer"'
+alias killps='pkill -f "ProxyServer"'
+alias killsync='pkill -f "SyncronizationServer"'
+alias psj='ps aux | grep java'
+
+# Handy command aliases
+alias br='. ~/.bash_profile' # easily reload .bash_profile
+alias unzipall="unzip -q '*.zip'"
+alias unzipq='unzip -q'
+alias ping='ping -c 3'
+alias fastping='ping -c 100 -s .2'
+alias df='df -h'
+alias du='du -ch'
+alias mv='mv -i'
+alias cp='cp -i'
 alias ls="ls -lh --color --group-directories-first"
-alias ll='ls -a'
-alias lll='ls a'
+alias ll='ls -A'
+alias lll='ls A'
 alias l.='ls -d .*'
 alias l='ls'
+alias llall='ls -R'
 alias c=clear
 alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
-alias .....='cd ../../../../'
-alias cd...='cd ../../..'
-alias cd....='cd ../../../..'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../'
+alias cd...='cd ../../../'
+alias cd....='cd ../../../../'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 alias .6='cd ../../../../../..'
+alias mkdir='mkdir -pv'
+alias wget='wget -c'
+alias tailf='tail -f'
 alias diff='colordiff'
 alias grep='grep --color'
 alias fgrep='fgrep --color'
 alias findhere='find . -iname'
 alias finddirectory='find . -type d -iname'
 alias findfile='find . -type f -iname'
-alias mkdir='mkdir -pv'
-alias wget='wget -c'
-alias tailf='tail -f'
+alias findlargefiles='du -S . | sort -rh | head -25'
+alias encode='base64 <<<'
+alias decode='base64 -d <<<'
+alias prettyjson='echo $1 | jq .'
 
+# Quick vim alias
 alias v=vim
 alias vi=vim
-alias bim=vim
 alias svi='sudo vi'
 alias edit='vim'
+alias frep=grep
 
-alias vm=mv
+# Common mistypes
 alias pc=cp
-
-alias ping='ping -c 3'
-alias fastping='ping -c 100 -s .2'
-alias df='df -h'
-alias du='du -ch'
-
-alias mv='mv -i'
-alias cp='cp -i'
-
+alias bim=vim
+alias vmi=vim
+alias vin=vim
 alias eexit=exit
-alias psj='ps aux | grep java'
-
-alias vmstat=vm_stat
-
-# For fun run $ cow at the command line
-alias cow='fortune | cowsay'
 
 # Adds coloring to man pages
 man() {

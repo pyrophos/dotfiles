@@ -82,7 +82,7 @@ set softtabstop=2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
-colorscheme delek
+colorscheme slate
 
 " Set higlight color
 "hi Search guibg=peru guifg=wheat
@@ -147,11 +147,11 @@ if has("mac") || has("macunix")
 endif
 
 " Delete trailing white space on save
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
+"func! DeleteTrailingWS()
+"  exe "normal mz"
+"  %s/\s\+$//ge
+"  exe "normal `z"
+"endfunc
 
 "Web filetypes
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
@@ -200,4 +200,4 @@ map <leader>s? z=
 " => Show extra whitespace
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set list
-set listchars=tab:>.,trail:.,extends:#,nbsp:.
+set listchars=tab:>.,trail:.,extends:.,nbsp:.
