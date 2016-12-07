@@ -1,30 +1,34 @@
 #Whats in an name/alias?
 
 # Mac Specific aliases
-alias f='open -a Finder ./' # Open a particular file using Finder
 alias vmstat=vm_stat
 alias htop='sudo htop'
+alias tcptraceroute='sudo tcptraceroute'
+alias cow='fortune | cowsay'
+
+alias f='open -a Finder ./' # Open a particular file using Finder
 alias disablenap='defaults write NSGlobalDomain NSAppSleepDisabled -bool YES'
 alias enablenap='defaults delete NSGlobalDomain NSAppSleepDisabled'
-alias mvn='mvn -DsuppressOutputOnFailure=true'
-alias cow='fortune | cowsay'
+alias purge='sudo purge'
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-# Navigate to directories I use often
-alias xtex='cd /Users/aponcy/svnrepo/qa/texas-file-repository/trunk'
-alias xtrunk='cd /Users/aponcy/svnrepo/trunk/ds/'
-alias xver='cd /Users/aponcy/versions/'
 alias dnsflush='sudo discoveryutil mdnsflushcache'
 
+# Navigate to directories used often
+alias xtex='cd ~/svnrepo/qa/texas-file-repository/trunk'
+alias xtrunk='cd ~/svnrepo/trunk/ds/'
+alias xetah='cd ~/svnrepo/qa/etah/trunk'
+alias xver='cd ~/versions/'
+
 # Quick kill statements
-alias killds='pkill -f "DirectoryServer"'
-alias killps='pkill -f "ProxyServer"'
-alias killsync='pkill -f "SyncronizationServer"'
+alias killmodrate='pkill -f ModRate'
+alias killsearchrate='pkill -f SearchRate'
 alias psj='ps aux | grep java'
 
 # Handy command aliases
-alias br='. ~/.bash_profile' # easily reload .bash_profile
-alias unzipall="unzip -q '*.zip'"
+alias mvn='mvn -DsuppressOutputOnFailure=true'
+alias br='. ~/.bash_profile ; . ~/.bash_aliases' # easily reload .bash_profile
+alias unzipall="echo 'One moment please...'; unzip -q '*.zip'"
 alias unzipq='unzip -q'
 alias ping='ping -c 3'
 alias fastping='ping -c 100 -s .2'
@@ -32,9 +36,9 @@ alias df='df -h'
 alias du='du -ch'
 alias mv='mv -i'
 alias cp='cp -i'
-alias ls="ls -lh --color --group-directories-first"
-alias ll='ls -A'
-alias lll='ls A'
+alias ls='ls -l --color --group-directories-first'
+alias ll='ls -ach'
+alias lf='ls -lt --full-time'
 alias l.='ls -d .*'
 alias l='ls'
 alias llall='ls -R'
@@ -62,7 +66,6 @@ alias findlargefiles='du -S . | sort -rh | head -25'
 alias encode='base64 <<<'
 alias decode='base64 -d <<<'
 alias prettyjson='echo $1 | jq .'
-
 # Quick vim alias
 alias v=vim
 alias vi=vim
