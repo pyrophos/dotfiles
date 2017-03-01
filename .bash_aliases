@@ -15,15 +15,13 @@ alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall F
 alias dnsflush='sudo discoveryutil mdnsflushcache'
 
 # Navigate to directories used often
-alias xtex='cd ~/svnrepo/qa/texas-file-repository/trunk'
-alias xtrunk='cd ~/svnrepo/trunk/ds/'
-alias xetah='cd ~/svnrepo/qa/etah/trunk'
-alias xver='cd ~/versions/'
+alias xvt='cd ~/git/affinipay/virtual_terminal'
+alias xgate='cd ~/git/affinipay/gateway'
 
 # Quick kill statements
-alias killmodrate='pkill -f ModRate'
-alias killsearchrate='pkill -f SearchRate'
 alias psj='ps aux | grep java'
+
+alias docker-up='eval $(docker-machine env default)'
 
 # Handy command aliases
 alias mvn='mvn -DsuppressOutputOnFailure=true'
@@ -36,9 +34,9 @@ alias df='df -h'
 alias du='du -ch'
 alias mv='mv -i'
 alias cp='cp -i'
-alias ls='ls -l --color --group-directories-first'
-alias ll='ls -ach'
-alias lf='ls -lt --full-time'
+alias ls='ls -hG'
+alias ll='ls -alchG'
+#alias lf='ls -lt --full-time'
 alias l.='ls -d .*'
 alias l='ls'
 alias llall='ls -R'
@@ -66,6 +64,7 @@ alias findlargefiles='du -S . | sort -rh | head -25'
 alias encode='base64 <<<'
 alias decode='base64 -d <<<'
 alias prettyjson='echo $1 | jq .'
+
 # Quick vim alias
 alias v=vim
 alias vi=vim

@@ -1,6 +1,10 @@
 #set -o vi
 set -o emacs
 
+if [ -f ~/.profile ]; then
+  source ~/.profile
+fi
+
 if [ -f ~/.bashrc ]; then
   source ~/.bashrc
 fi
@@ -28,40 +32,41 @@ export HISTFILESIZE=2000
 
 
 # Generic PATH:
-export PATH=/usr/local/etc:${PATH}
-export PATH=/usr/local/sbin:${PATH}
-export PATH=/usr/local/bin:${PATH}
-export PATH=~/bin:${PATH}
-export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:${PATH}"
-export PATH="$(brew --prefix coreutils)/libexec/gnubin:/usr/local/bin:${PATH}"
-export PATH=/usr/local/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/gnu-tar/libexec/gnubin:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:${PATH}
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+#export PATH="$PATH:$HOME/.rvm/bin"
+export PATH=${PATH}:/usr/local/etc
+export PATH=${PATH}:/usr/local/sbin
+export PATH=${PATH}:/usr/local/bin
+export PATH=${PATH}:~/bin
+#export PATH="${PATH}:/usr/local/opt/gnu-tar/libexec/gnubin"
+#export PATH="${PATH}:$(brew --prefix coreutils)/libexec/gnubin"
+#export PATH=${PATH}:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/opt/gnu-tar/libexec/gnubin:${HOME}/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
 
 # Maven path
-export MAVEN_HOME=/Users/adamponcy/devtools/apache-maven-3.3.3
-export M2_HOME=/Users/adamponcy/devtools/apache-maven-3.3.3
-export PATH=${M2_HOME}/bin:${PATH}
+maven_version=3.3.9
+export MAVEN_OPTS="-Xmx512m"
+export MAVEN_HOME=~/devtools/apache-maven-${maven_version}
+export M2_HOME=~/devtools/apache-maven-${maven_version}
+export PATH=${PATH}:${M2_HOME}/bin
 
-# Python
-#export PATH=${PATH}:/usr/local/opt/go/libexec/bin
 # Add go to the path
-#export PATH=${PATH}:/usr/local/opt/go/libexec/bin
+export PATH=${PATH}:/usr/local/opt/go/libexec/bin
 
 export PROMPT_COMMAND=""
 export PS1="${txtBlue}[\t] \[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]$ "
 #export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
 export CLICOLOR=1
-export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+#export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+export LSCOLORS=ExFxBxDxCxegedabagacad
 export EDITOR=vim
 
-export ARCHFLAGS="-arch x86_64"
-export FINDBUGS_HOME=/usr/local/bin/findbugs
+#export ARCHFLAGS="-arch x86_64"
+#export FINDBUGS_HOME=/usr/local/bin/findbugs
 
 # Some Java Paths for Automation Tests
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-#export JAVA6_HOME=/Library/Java/JavaVirtualMachines/1.6.0.jdk
-export JAVA7_HOME=$(/usr/libexec/java_home -v 1.7)
-export JAVA8_HOME=$(/usr/libexec/java_home -v 1.8)
-#export UNBOUNDID_JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
+#export JAVA7_HOME=$(/usr/libexec/java_home -v 1.7)
+#export JAVA8_HOME=$(/usr/libexec/java_home -v 1.8)
 
 # Groovy
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
